@@ -14,6 +14,9 @@
 
 
 ### Techs & languages & tools:
+ - React
+ - Next
+ - Chakra UI
  - Skaffold
  - Kubernetes
  - Docker
@@ -28,6 +31,13 @@
  - RESTful APIs
  - Postman
 
+
+
+
+#### Seme remarks
+
+express-async-errors: we need to handle error thrown by express, by default it handles sync route handlers (function), but in case of
+we mark handler with async like: `async (res, req) = {}`, then the request just hangs, to fix this issue we used express-async-errors
 
  ### Useful resources:
  - [secure-web-app-http-headers](https://www.smashingmagazine.com/2017/04/secure-web-app-http-headers)
