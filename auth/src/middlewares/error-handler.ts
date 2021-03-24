@@ -14,10 +14,11 @@ export const errorHandler = (err: Error, req: Request, res: Response, next: Next
   console.log("[global error handler]", err.message);
 
   if (err instanceof BaseError) {
-    res.
+    return res.
       status(err.statusCode).
       json({ errors: err.serializeErrors() });
   }
 
   res.status(400).json({ msg: "error thrown" })
+  // next();
 }

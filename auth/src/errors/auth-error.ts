@@ -1,20 +1,21 @@
 import BaseError from './base-error';
 
-class AuthError extends BaseError {
-  statusCode = 403;
+class UnauthorizedError extends BaseError {
+  statusCode = 401;
+  reason = "Not authorized";
 
-  constructor(private error: String) {
-    super("authentication error");
+  constructor() {
+    super("Not authorized");
 
     // only because we are extending a built in class
-    Object.setPrototypeOf(this, AuthError.prototype);
+    Object.setPrototypeOf(this, UnauthorizedError.prototype);
   }
 
   serializeErrors() {
     return [
-
+      { message: this.reason }
     ]
   }
 }
 
-export default AuthError;
+export default UnauthorizedError;

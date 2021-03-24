@@ -12,7 +12,9 @@ class GenericError extends BaseError {
   }
 
   serializeErrors() {
-    return []
+    return [
+      { message: this.reason }
+    ]
   }
 }
 

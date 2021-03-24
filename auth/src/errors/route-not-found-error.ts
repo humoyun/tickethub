@@ -1,6 +1,6 @@
 import BaseError from './base-error';
 
-class NotFoundError extends BaseError {
+class RouteNotFoundError extends BaseError {
   statusCode = 404;
   reason = "Route not found";
 
@@ -8,7 +8,7 @@ class NotFoundError extends BaseError {
     super("Route not found");
 
     // only because we are extending a built in class
-    Object.setPrototypeOf(this, NotFoundError.prototype);
+    Object.setPrototypeOf(this, RouteNotFoundError.prototype);
   }
 
   serializeErrors() {
@@ -18,4 +18,4 @@ class NotFoundError extends BaseError {
   }
 }
 
-export default NotFoundError;
+export default RouteNotFoundError;

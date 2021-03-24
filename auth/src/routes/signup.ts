@@ -1,10 +1,11 @@
 import express, {Request, Response} from 'express';
-import { body, validationResult } from 'express-validator';
+import { body } from 'express-validator';
+import jwt from 'jsonwebtoken';
 import {
-  RequestValidationError,
   BadRequestError,
 } from '../errors';
 import { User } from '../models/user';
+import { validateRequest } from '../middlewares/validate-request';
 
 const router = express.Router();
 
@@ -18,15 +19,10 @@ router.post('/api/users/signup', [
   body('email').isEmail().
     withMessage("valid email must be provided"), 
   body('password').trim().isLength({min: 4, max: 10}).
-    withMessage("password must be at least 4 and at most 10 characters")
+    withMessage("password must be at least 4 and at most 10 characters"),
+    validateRequest
 ], 
   async (req: Request, res: Response) => {
-  const errors = validationResult(req);
-
-  if (!errors.isEmpty()) {
-    // return res.status(400).json({ errors: errors.array() });
-    throw new RequestValidationError(errors.array());
-  }  
   
   const {email, password} = req.body;
   const existingUser = await User.findOne({ email })
@@ -37,7 +33,14 @@ router.post('/api/users/signup', [
   
   await newUser.save()
 
-  res.status(201).json(newUser);
+  const token = jwt.sign({ id: newUser.id, email: newUser.email }, process.env.JWT_KEY as string)
+  console.log('jwt token', token)
+  
+  req.session = {
+    jwt: token
+  }
+
+  res.status(201).send(newUser);
 });
 
 export { router as signupRouter };
