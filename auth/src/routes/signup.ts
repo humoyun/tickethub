@@ -34,7 +34,6 @@ router.post('/api/users/signup', [
   await newUser.save()
 
   const token = jwt.sign({ id: newUser.id, email: newUser.email }, process.env.JWT_KEY as string)
-  console.log('jwt token', token)
   
   req.session = {
     jwt: token

@@ -10,7 +10,7 @@ import {
 } from './routes';
 import { errorHandler } from './middlewares/error-handler';
 import { RouteNotFoundError } from './errors'
-import mongoose from 'mongoose';
+
 
 const app = express();
 
@@ -34,8 +34,6 @@ app.use(cookieSession({
 app.use(express.json())
 app.disable('x-powered-by');
 
-const PORT = 4001;
-
 app.use(currentUserRouter);
 app.use(signoutRouter);
 app.use(signinRouter);
@@ -56,26 +54,4 @@ app.use(errorHandler);
   res.json({msg: "ok"}).status(200)
 });
 
-const start = async () => {
-
-  if (!process.env.JWT_KEY) {
-    throw new Error('JWT must be defined');
-  }
-  
-  try {
-    await mongoose.connect('mongodb://auth-mongo-srv:27017/auth', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true
-    });
-    console.log('*** auth connected to mongodb ***')
-  } catch (err) {
-    console.error('mongodb conn err: ', err)  
-  }
-
-  app.listen(PORT, () => {
-    console.log(`auth service started on ${PORT}!`)
-  })
-}
-
-start()
+export default app;

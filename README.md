@@ -36,6 +36,9 @@
 
 #### Seme remarks
 
+JWT_KEY is generated and maintained by kubernetes, it makes sure to make JWT_KEY available for pods in the form of env variables
+- cmd: `kubectl create secret generic jwt-secret --from-literal=JWT_KEY=some-very-secret-key`
+
 express-async-errors: we need to handle error thrown by express, by default it handles sync route handlers (function), but in case of
 we mark handler with async like: `async (res, req) = {}`, then the request just hangs, to fix this issue we used express-async-errors
 
