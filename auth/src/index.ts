@@ -2,6 +2,8 @@ import mongoose from 'mongoose';
 import app from './app'
 
 const PORT = 4001;
+// defined in kubernetes config files
+const MONGODB_URL = 'mongodb://auth-mongo-srv:27017/auth';
 
 const start = async () => {
   if (!process.env.JWT_KEY) {
@@ -9,7 +11,7 @@ const start = async () => {
   }
   
   try {
-    await mongoose.connect('mongodb://auth-mongo-srv:27017/auth', {
+    await mongoose.connect(MONGODB_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true

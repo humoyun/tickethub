@@ -1,5 +1,5 @@
 {
-  "name": "auth",
+  "name": "@tikethub/auth",
   "version": "0.0.2",
   "description": "authentication service",
   "main": "index.ts",

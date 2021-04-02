@@ -1,15 +1,15 @@
 import express from 'express';
-import 'express-async-errors';
 import cookieSession from 'cookie-session';
+import 'express-async-errors';
 import cors from 'cors';
+import { errorHandler } from './middlewares/error-handler';
+import { RouteNotFoundError } from './errors'
 import {
   currentUserRouter, 
   signoutRouter,
   signinRouter,
   signupRouter
 } from './routes';
-import { errorHandler } from './middlewares/error-handler';
-import { RouteNotFoundError } from './errors'
 
 
 const app = express();
@@ -27,7 +27,7 @@ app.use(cors())
 app.use(cookieSession({
   // we are not encrypting cookie data 'cause we are storing JWT
   signed: false, // and it is already cryptographically signed and temper-poof
-  secure: true, // cookie is available only over HTTPS connecion
+  secure: process.env.NODE_ENV!=='test', // cookie is available only over HTTPS connection (jest sets NODE_ENV = test while running tests) 
   name: 'jwt', // changing default name, `express:sess`
 }))
 

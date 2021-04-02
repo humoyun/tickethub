@@ -47,7 +47,7 @@ it('it responds with cookie when correct credentials are supplied', async () => 
       password: "password"
     })
     .expect(200);
-  console.log('resp', resp)
+  
   expect(resp.get('Set-Cookie')).toBeDefined();
 
 }, timeout);
