@@ -2,8 +2,7 @@ import express from 'express';
 import cookieSession from 'cookie-session';
 import 'express-async-errors';
 import cors from 'cors';
-import { errorHandler } from './middlewares/error-handler';
-import { RouteNotFoundError } from './errors'
+import { RouteNotFoundError, errorHandler } from 'bay-common';
 import {
   currentUserRouter, 
   signoutRouter,
