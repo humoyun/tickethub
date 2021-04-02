@@ -30,7 +30,9 @@ it('fails when an incorrect password is supplied', async () => {
     .expect(400)
 }, timeout);
 
-
+/**
+ * 3
+ */
 it('it responds with cookie when correct credentials are supplied', async () => {
   await request(app)
     .post('/api/users/signup')
@@ -47,7 +49,10 @@ it('it responds with cookie when correct credentials are supplied', async () => 
       password: "password"
     })
     .expect(200);
-  
+  console.log('[signin]resp', resp.get('Set-Cookie'))
+  console.log('[signin]*****************')
+  console.log('[signin]', resp)
+  console.log('[signin]*****************')
   expect(resp.get('Set-Cookie')).toBeDefined();
 
 }, timeout);

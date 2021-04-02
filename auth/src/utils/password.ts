@@ -1,4 +1,4 @@
-import argon2 from "argon2";
+import * as argon2 from "argon2"; 
 
 export class Password {
   static async verify(real: string, toCheck: string): Promise<boolean | undefined>  { 

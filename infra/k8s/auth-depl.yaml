@@ -14,7 +14,7 @@ spec:
   spec:
    containers:
     - name: auth
-      image: tickethub/auth
+      image: bay/auth
       env:
        - name: JWT_KEY
          valueFrom:

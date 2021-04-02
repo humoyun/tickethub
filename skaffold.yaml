@@ -8,11 +8,19 @@ build:
   local:
     push: false
   artifacts:
-    - image: tikethub/auth
+    - image: bay/auth
       context: auth
       docker:
         dockerfile: Dockerfile
       sync:
         manual:
           - src: "src/**/*.ts"
+            dest: .
+    - image: bay/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "**/*.js"
             dest: .

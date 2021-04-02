@@ -1,4 +1,4 @@
-## Tikethub: ticket ordering platform build on Microservices architecture
+## Bay: ticket ordering platform build on Microservices architecture
 
 Event based microservices
 
