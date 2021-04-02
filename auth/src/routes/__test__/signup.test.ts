@@ -3,6 +3,9 @@ import app from '../../app';
 
 const timeout = 2000;
 
+/**
+ * 1. 
+ */
 it('returns a 201 on successful signup', async () => {
   return request(app)
     .post('/api/users/signup')
@@ -11,7 +14,9 @@ it('returns a 201 on successful signup', async () => {
 
 }, timeout);
 
-
+/**
+ * 2.
+ */
 it('it returns a 400 bad request with invalid email', async () => {
   return request(app)
     .post('/api/users/signup')
@@ -22,7 +27,9 @@ it('it returns a 400 bad request with invalid email', async () => {
     .expect(400)
 }, timeout);
 
-
+/**
+ * 3.
+ */
 it('it returns a 400 bad request with missing email or password', async () => {
   await request(app)
     .post('/api/users/signup')
@@ -39,7 +46,9 @@ it('it returns a 400 bad request with missing email or password', async () => {
     .expect(400)
 }, timeout);
 
-
+/**
+ * 4.
+ */
 it('it disallows signup with duplicate emails', async () => {
   await request(app)
     .post('/api/users/signup')

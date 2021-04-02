@@ -34,7 +34,8 @@
     "dist"
   ],
   "include": [
-    "./src/**/*.ts"
+    "./src/**/*.ts",
+    "./tests/*.ts"
   ],
   "outDir": "dist"
 }
