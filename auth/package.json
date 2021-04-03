@@ -1,6 +1,6 @@
 {
   "name": "@bay/auth",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "authentication service",
   "main": "index.ts",
   "scripts": {
@@ -20,7 +20,7 @@
   },
   "keywords": [
     "auth",
-    "microservice",
+    "microservices",
     "login",
     "logout"
   ],
@@ -32,7 +32,7 @@
     "@types/express": "^4.17.11",
     "@types/jsonwebtoken": "^8.5.1",
     "argon2": "^0.27.1",
-    "bay-common": "0.0.5",
+    "bay-common": "0.0.10",
     "cookie-session": "^1.4.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",

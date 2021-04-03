@@ -1,7 +1,7 @@
+import { validateRequest, BadRequestError } from 'bay-common'; 
 import express, {Request, Response} from 'express';
 import { body } from 'express-validator';
 import jwt from 'jsonwebtoken';
-import { BadRequestError, validateRequest } from 'bay-common';
 import { User } from '../models/user';
 import { Password } from '../utils/password';
 
