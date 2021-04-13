@@ -8,6 +8,7 @@ build:
   local:
     push: false
   artifacts:
+    # image names (e.g. bay/auth) defined in corresponding k8s/yaml* files
     - image: bay/auth
       context: auth
       docker:
@@ -16,6 +17,15 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
+    - image: bay/tickets
+      context: tickets
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
+    # next.js client
     - image: bay/client
       context: client
       docker:

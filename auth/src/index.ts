@@ -6,6 +6,7 @@ const PORT = 4001;
 const MONGODB_URL = 'mongodb://auth-mongo-srv:27017/auth';
 
 const start = async () => {
+  // TODO where defined
   if (!process.env.JWT_KEY) {
     throw new Error('JWT must be defined');
   }

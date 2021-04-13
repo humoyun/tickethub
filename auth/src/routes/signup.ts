@@ -1,11 +1,8 @@
+import { BadRequestError, validateRequest } from 'bay-common';
 import express, {Request, Response} from 'express';
 import { body } from 'express-validator';
 import jwt from 'jsonwebtoken';
-import {
-  BadRequestError,
-} from '../errors';
 import { User } from '../models/user';
-import { validateRequest } from '../middlewares/validate-request';
 
 const router = express.Router();
 

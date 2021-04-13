@@ -1,21 +1,22 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose, { Collection } from 'mongoose';
-import request from 'supertest'
 import app from '../src/app';
+import request from 'supertest'
 
 let mongodb: MongoMemoryServer;
 
 declare global {
   namespace NodeJS {
     interface Global {
-      signup(): Promise<string[]>
+      signup(): Promise<string[]>;
     }
   }
 }
 
 beforeAll(async () => {
   // not a best option, but works
-  process.env.JWT_KEY = 'some-very-secret-key'; 
+  process.env.JWT_KEY = 'some-very-secret-key';
+  // process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
   mongodb = new MongoMemoryServer();
   const mongouri = await mongodb.getUri();
@@ -41,7 +42,7 @@ afterAll(async () => {
 /**
  * global signin for only testing environment
  */
- global.signup = async () => {
+global.signup = async () => {
   const email = "test@test.com";
   const password = "password";
 

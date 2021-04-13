@@ -12,10 +12,17 @@ spec:
     - host: bay.com
       http:
         paths:
+          # auth service
           - path: /api/users/?(.*)
             backend:
               serviceName: auth-srv
               servicePort: 4001
+          # tickets service
+          - path: /api/tickets/?(.*)
+            backend:
+              serviceName: tickets-srv
+              servicePort: 4002
+          # client next.js ssr app
           - path: /?(.*)
             backend:
               serviceName: client-srv
