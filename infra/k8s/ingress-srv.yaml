@@ -16,12 +16,12 @@ spec:
           - path: /api/users/?(.*)
             backend:
               serviceName: auth-srv
-              servicePort: 4001
+              servicePort: 3000
           # tickets service
           - path: /api/tickets/?(.*)
             backend:
               serviceName: tickets-srv
-              servicePort: 4002
+              servicePort: 3000
           # client next.js ssr app
           - path: /?(.*)
             backend:

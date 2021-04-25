@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import app from './app'
 
-const PORT = 4002;
+const PORT = 3000;
 
 const start = async () => {
   // JWT_KEY defined in kubernetes secret service

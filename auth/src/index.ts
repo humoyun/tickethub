@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import app from './app'
 
-const PORT = 4001;
+const PORT = 3000;
 // defined in kubernetes config files
 const MONGODB_URL = 'mongodb://auth-mongo-srv:27017/auth';
 
