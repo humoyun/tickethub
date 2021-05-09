@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image: bay/auth
+          image: hmoyun/auth
           env:
             - name: JWT_KEY
               valueFrom:
@@ -30,6 +30,7 @@ metadata:
 spec:
   selector:
     app: auth
+  type: ClusterIP # actually no need, by default it is ClusterIP
   ports:
     - name: auth
       protocol: TCP

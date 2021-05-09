@@ -8,8 +8,8 @@ build:
   local:
     push: false
   artifacts:
-    # image names (e.g. bay/auth) defined in corresponding k8s/yaml* files
-    - image: bay/auth
+    # image names (e.g. hmoyun/auth) defined in corresponding k8s/*-depl.yaml files
+    - image: hmoyun/auth
       context: auth
       docker:
         dockerfile: Dockerfile
@@ -17,7 +17,7 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
-    - image: bay/tickets
+    - image: hmoyun/tickets
       context: tickets
       docker:
         dockerfile: Dockerfile
@@ -26,7 +26,7 @@ build:
           - src: "src/**/*.ts"
             dest: .
     # next.js client
-    - image: bay/client
+    - image: hmoyun/client
       context: client
       docker:
         dockerfile: Dockerfile

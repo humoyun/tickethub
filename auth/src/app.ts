@@ -38,19 +38,21 @@ app.use(signoutRouter);
 app.use(signinRouter);
 app.use(signupRouter);
 
+/**
+ * events
+ */
+ app.post('/events', (req, res) => {
+  console.warn('* auth service events path *', req.body)
+  res.json({msg: "ok"}).status(200)
+});
+
+// this `async` keyword causes some error if not handled appropriately
+// look at this package: `express-async-errors`
 app.all('*', async () => {
   throw new RouteNotFoundError();
 });
 
 app.use(errorHandler);
 
-
-/**
- * events
- */
- app.post('/events', (req, res) => {
-  console.log('auth service events path', req.body)
-  res.json({msg: "ok"}).status(200)
-});
 
 export default app;

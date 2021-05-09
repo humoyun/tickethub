@@ -35,8 +35,8 @@ const userSchema = new mongoose.Schema({
     required: true
   }
 }, {
-  // we dont want to send some properties of user model like password when we are returning some response
-  // similar technique toJSON in javascript objects to override json 
+  // we don't want to send some properties of user model like password when we are returning 
+  // some response similar technique toJSON in javascript objects to override json 
   toJSON: {
     transform(doc, ret) {
       delete ret.password;

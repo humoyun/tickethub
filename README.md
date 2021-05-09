@@ -34,7 +34,7 @@ Event based microservices
 - RESTful APIs
 - Postman
 
-#### Seme remarks
+#### Some remarks
 
 JWT_KEY is generated and maintained by kubernetes, it makes sure to make JWT_KEY available for pods in the form of env variables
 
@@ -53,7 +53,7 @@ express-async-errors: we need to handle error thrown by express, by default it h
 in order to load/add global packages/styles/anything into all components that we need provide custom `_app.js`
 add import all global packages inside it and if needed pass as props global options
 
-Component is any file inside `/pages` (Next makes them into routeable pages)
+Component is any file inside `/pages` (Next makes them into route-able pages)
 
 https://github.com/vercel/next.js/blob/canary/errors/css-global.md
 
@@ -68,11 +68,11 @@ function _app({ Component, pageProps }) {
   we can do this:
 
 | Options     | Cookie | Authorization header | Request body |
-| ----------- | :----- | -------------------: | -----------: |
-| SSR (Next)  | true   |                false |        false |
-| SPA (React) | true   |                 true |         true |
+| ----------- | ------ | -------------------- | ------------ |
+| SSR (Next)  | true   | false                | false        |
+| SPA (React) | true   | true                 | true         |
 
-TODO: use custom Formik in codesandbox in next client app
+TODO: use custom `Formik` in `codesandbox` in next client app
 
 ### Error when NextJS run inside docker (Kubernetes)
 
@@ -99,3 +99,23 @@ when making `request` from Pod(container) namespace (but actual `request` is ori
 especially `Host` and `cookie`
 
 NextJS -> Cluster[ingres-nginx -> next-js-pod -> ingress-nginx -> auth-app-in-another-pod]
+
+### Global signup method for only testing purposes
+
+```
+  global.signup = async () => {
+  const email = "test@test.com";
+  const password = "password";
+
+  const resp = await request(app).
+  post('/api/users/signup').
+  send({email, password}).
+  expect(201);
+
+  const cookie = resp.get('Set-Cookie');
+
+  return cookie;
+}
+```
+
+## TODO: Mocking databases MongoDB in tests instead of using real mongodb connection

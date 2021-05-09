@@ -1,7 +1,7 @@
 {
   "name": "@bay/tickets",
   "version": "0.0.1",
-  "description": "tickets service as a microservice",
+  "description": "tickets service as a micro- service",
   "main": "index.ts",
   "scripts": {
     "watch": "tsc -w",
@@ -24,6 +24,7 @@
     "cookie-session": "^1.4.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
     "express-validator": "^6.10.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.3",

@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: tickets
-          image: bay/tickets
+          image: hmoyun/tickets
           env:
             - name: MONGO_URI
               value: "mongodb://tickets-mongo-srv:27017/tickets"
@@ -33,7 +33,7 @@ spec:
   selector:
     app: tickets
   ports:
-    - name: auth
+    - name: tickets
       protocol: TCP
       port: 3000
       targetPort: 3000

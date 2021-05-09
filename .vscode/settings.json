@@ -1,9 +1,11 @@
 {
   "cSpell.words": [
+    "asynciterable",
     "depl",
     "kubectl",
     "kubernetes",
     "microservices",
+    "mongodb",
     "signin",
     "signout",
     "signup",

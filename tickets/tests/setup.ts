@@ -40,7 +40,7 @@ afterAll(async () => {
 })
 
 /**
- * global signin for only testing environment
+ * global signup for only testing environment
  */
 global.signup = async () => {
   const email = "test@test.com";

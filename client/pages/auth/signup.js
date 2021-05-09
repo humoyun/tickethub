@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react';
+import React from 'react';
 import Router from 'next/router';
-import useRequest from '../../hooks/use-request';
+import useRequest from '@/hooks/use-request';
 
 export default () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [loading, setLoading] = React.useState(false);
+
   const { doRequest, errors } = useRequest({
     url: '/api/users/signup',
     method: 'post',
@@ -12,13 +14,16 @@ export default () => {
       email,
       password
     },
-    onSuccess: () => Router.push('/')
+    onSuccess: () => {
+      Router.push('/')
+    }
   });
 
   const onSubmit = async event => {
     event.preventDefault();
-
+    setLoading(true);
     await doRequest();
+    setLoading(false);
   };
 
   return (
@@ -42,7 +47,7 @@ export default () => {
         />
       </div>
       {errors}
-      <button className="btn btn-primary">Sign Up</button>
+      <button className="btn btn-outline-primary" disabled={loading}>Sign Up</button>
     </form>
   );
 };

@@ -15,7 +15,7 @@ declare global {
 
 beforeAll(async () => {
   // not a best option, but works
-  process.env.JWT_KEY = 'some-very-secret-key'; 
+  process.env.JWT_KEY = 'some-very-secret-key-for-test-env'; 
 
   mongodb = new MongoMemoryServer();
   const mongouri = await mongodb.getUri();

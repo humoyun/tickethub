@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
+import React from 'react';
 import Router from 'next/router';
-import useRequest from '../../hooks/use-request';
+import useRequest from '@/hooks/use-request';
 
 export default () => {
   const { doRequest } = useRequest({
@@ -10,7 +10,7 @@ export default () => {
     onSuccess: () => Router.push('/')
   });
 
-  useEffect(() => {
+  React.useEffect(() => {
     doRequest();
   }, []);
 

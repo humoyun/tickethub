@@ -1,7 +1,6 @@
 #### Some remarks
 
-express-async-errors: we need to handle error thrown by express, by default it handles sync route handlers (function), but in case of
-we mark handler with async like: `async (res, req) = {}`, then the request just hangs, to fix this issue we used express-async-errors
+`express-async-errors`: we need to handle error thrown by express, by default it handles sync route handlers (function), but in case of we mark handler with async like: `async (res, req) = {}`, then the request just hangs, to fix this issue we used express-async-errors
 
 ### Testing issues
 
@@ -27,3 +26,5 @@ Server Version: v1.18.12-gke.1210
 Reference: https://github.com/kubernetes/kubernetes/issues/90077
 
 My local machine is installed with v1.19.3, so it can support networking.k8s.io/v1. But when deploying the app to Google Cloud using Skaffold, I need to change back to v1beta1
+
+#### https://github.com/praveenweb/swr-graphql/issues/6
