@@ -1,10 +1,5 @@
-import express, { Request, Response } from 'express'
+import { createTicketRouter } from './new';
 
-const router = express.Router();
-
-router.post('/api/tickets/some', (req: Request, res: Response) => { 
-  req.session = null;
-  res.json([]);
-})
-
-export { router as someRouter };
+export {
+  createTicketRouter
+}

@@ -2,9 +2,9 @@ import express from 'express';
 import cookieSession from 'cookie-session';
 import 'express-async-errors';
 import cors from 'cors'; 
-import { RouteNotFoundError, errorHandler } from 'bay-common';
+import { RouteNotFoundError, errorHandler, currentUser } from 'bay-common';
 import {
-  someRouter
+  createTicketRouter
 } from './routes';
 
 
@@ -23,14 +23,15 @@ app.use(cors())
 app.use(cookieSession({
   // we are not encrypting cookie data 'cause we are storing JWT
   signed: false, // and it is already cryptographically signed and temper-poof
-  secure: process.env.NODE_ENV!=='test', // cookie is available only over HTTPS connection (jest sets NODE_ENV = test while running tests) 
+  secure: process.env.NODE_ENV !== 'test', // cookie is available only over HTTPS connection (jest sets NODE_ENV = test while running tests) 
   name: 'jwt', // changing default name, `express:sess` -> `jwt`
 }))
+app.use(currentUser)
 
 app.use(express.json())
 app.disable('x-powered-by'); // good practice to hide what server is powering this app
 
-app.use(someRouter);
+app.use(createTicketRouter);
 
 
 app.all('*', async () => {

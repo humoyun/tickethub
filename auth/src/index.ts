@@ -2,17 +2,19 @@ import mongoose from 'mongoose';
 import app from './app'
 
 const PORT = 3000;
-// defined in kubernetes config files
-const MONGODB_URL = 'mongodb://auth-mongo-srv:27017/auth';
 
 const start = async () => {
-  // TODO where defined
   if (!process.env.JWT_KEY) {
     throw new Error('JWT must be defined');
   }
+
+  // currently defined in env section of k8s manifest files (yaml)
+  if (!process.env.MONGO_URI) {
+    throw new Error('MONGO_URI must be defined');
+  }
   
   try {
-    await mongoose.connect(MONGODB_URL, {
+    await mongoose.connect(process.env.MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true

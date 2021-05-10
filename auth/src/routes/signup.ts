@@ -5,7 +5,6 @@ import jwt from 'jsonwebtoken';
 import { User } from '../models/user';
 
 const router = express.Router();
-
 interface UserResponse {
   errors: Array<string>;
   email: string;

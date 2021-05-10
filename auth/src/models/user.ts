@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 import { Password } from '../utils/password';
+
 // because of mongoose and TS does not cooperate well, type checking
+// these are props that are are required to build a new user 
 interface UserProps {
   email: string;
   password: string;
@@ -56,6 +58,7 @@ userSchema.pre('save', async function(done) {
   done();
 })
 
+// extending userSchema by adding build in statics
 userSchema.statics.build = (props: UserProps) => {
   return new User(props);
 }

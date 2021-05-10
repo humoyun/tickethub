@@ -23,7 +23,7 @@ export default () => {
 
   return (
     <form onSubmit={onSubmit}>
-      <h1>Sign In</h1>
+      <h2>Sign In</h2>
       <div className="form-group">
         <label>Email Address</label>
         <input
