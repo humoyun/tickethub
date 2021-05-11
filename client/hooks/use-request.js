@@ -13,6 +13,10 @@ export default ({ url, method, body, onSuccess }) => {
         onSuccess(response.data);
       }
 
+      console.warn('************************')
+      console.warn(response)
+      console.warn('************************')
+
       return response.data;
     } catch (err) {
       setErrors(

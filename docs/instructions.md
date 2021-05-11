@@ -21,6 +21,6 @@
 
 - `kubectl get pods --all-namespaces -l app=ingress-nginx`
 
-### otehr commands
+### other commands
 
 - kubectl get pods -n kube-system

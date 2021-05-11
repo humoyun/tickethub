@@ -4,7 +4,10 @@ import 'express-async-errors';
 import cors from 'cors'; 
 import { RouteNotFoundError, errorHandler, currentUser } from 'bay-common';
 import {
-  createTicketRouter
+  createTicketRouter,
+  updateTicketRouter,
+  getAllTicketRouter,
+  getTicketRouter
 } from './routes';
 
 
@@ -31,7 +34,11 @@ app.use(currentUser)
 app.use(express.json())
 app.disable('x-powered-by'); // good practice to hide what server is powering this app
 
+app.use(getAllTicketRouter);
+app.use(getTicketRouter);
 app.use(createTicketRouter);
+app.use(updateTicketRouter);
+
 
 
 app.all('*', async () => {

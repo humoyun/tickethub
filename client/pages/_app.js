@@ -4,7 +4,7 @@ import Header from '@/components/header';
 import './app.css'
 
 const AppComponent = ({ Component, pageProps, me }) => {
-  console.log("_app page", )
+  console.log("_app page", me)
   return (
     <main>
       <Header currentUser={me} />
@@ -21,7 +21,6 @@ const AppComponent = ({ Component, pageProps, me }) => {
 AppComponent.getInitialProps = async appContext => {
   const apiClient = buildClient(appContext.ctx);
   const { data } = await apiClient.get('/api/users/me');
-  
   /**
    * `getInitialProps` in custom _app component will wrapper other components and getInitialProps 
    * in other pages just does not work, so we need tio call it manually and pass props to it

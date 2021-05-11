@@ -54,5 +54,4 @@ app.all('*', async () => {
 
 app.use(errorHandler);
 
-
 export default app;

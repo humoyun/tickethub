@@ -44,10 +44,10 @@ afterAll(async () => {
  * global signup for only testing environment
  */
 global.signin = () => {
+  const objectId = new mongoose.Types.ObjectId().toHexString();
   const payload = {
     email: "test@test.com",
-    password: "password",
-    id: "test-user-id"
+    id: `test-${objectId}`
   }
 
   const token = jwt.sign(payload, process.env.JWT_KEY as string)

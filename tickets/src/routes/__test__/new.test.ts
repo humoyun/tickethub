@@ -16,7 +16,7 @@ it('not authorized users cannot access this route', () => {
     .post('/api/tickets')
     .send({})
     .expect(401);
-});
+}, 2000);
 
 it('only authorized users can access this route', async () => {
   const resp = await request(app)
@@ -25,7 +25,7 @@ it('only authorized users can access this route', async () => {
     .send({})
 
   expect(resp.status).not.toEqual(401);
-});
+}, 2000);
 
 it('returns error in case of invalid title', async () => {
   await request(app)
@@ -35,7 +35,7 @@ it('returns error in case of invalid title', async () => {
       title: '',
       price: 100
     })
-    .expect(400)
+    .expect(400) // bad request
   
   await request(app)
     .post('/api/tickets')
@@ -43,8 +43,8 @@ it('returns error in case of invalid title', async () => {
     .send({
       price: 100
     })
-  .expect(400)
-});
+  .expect(400) // bad request
+}, 2000);
 
 it('returns error in case of invalid price', async () => {
   await request(app)
@@ -54,7 +54,7 @@ it('returns error in case of invalid price', async () => {
       title: 'Ticket 1',
       price: -10
     })
-    .expect(400)
+    .expect(400) // bad request
   
   await request(app)
     .post('/api/tickets')
@@ -62,13 +62,12 @@ it('returns error in case of invalid price', async () => {
     .send({
       title: 'Ticket 1',
     })
-    .expect(400)
-});
+    .expect(400) // bad request
+}, 2000);
 
 it('creates a ticket with valid inputs', async () => {
   let tickets = await Ticket.find({});
   expect(tickets.length).toEqual(0);
-  console.log('***** ', tickets)
 
   await request(app)
     .post('/api/tickets')
@@ -80,8 +79,8 @@ it('creates a ticket with valid inputs', async () => {
     .expect(201);
   
   tickets = await Ticket.find({});
-  console.log('***** ', tickets)
+  
   expect(tickets.length).toEqual(1);
   expect(tickets[0].price).toEqual(42);
-});
+}, 2000);
 

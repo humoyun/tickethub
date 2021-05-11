@@ -1,5 +1,11 @@
 import { createTicketRouter } from './new';
+import { updateTicketRouter } from './update';
+import { getTicketRouter } from './get';
+import { getAllTicketRouter } from './listing';
 
 export {
-  createTicketRouter
+  createTicketRouter,
+  updateTicketRouter,
+  getAllTicketRouter,
+  getTicketRouter
 }

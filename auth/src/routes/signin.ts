@@ -12,7 +12,7 @@ router.post('/api/users/signin', [
   body('password').trim().notEmpty().withMessage("You must supply password"),
   validateRequest
 ], async (req: Request, res: Response) => {
-  const {email, password} = req.body;
+  const { email, password } = req.body;
   const existingUser = await User.findOne({ email });
 
   if (!existingUser) {
@@ -26,6 +26,10 @@ router.post('/api/users/signin', [
   
   const token = jwt.sign({ id: existingUser.id, email: existingUser.email }, process.env.JWT_KEY as string)
 
+  /**
+   * Gotcha: be careful when you type url in the browser :)
+   * if you forget to use https then cookie is not set in browser
+   */
   req.session = {
     jwt: token
   }

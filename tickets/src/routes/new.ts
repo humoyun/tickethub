@@ -14,22 +14,18 @@ router.post('/api/tickets', isAuth, [
 
   const { title, price } = req.body;
   
-  console.log('req.session', req.currentUser)
-    
   const ticket = Ticket.build({
     title,
     price,
     userId: req.currentUser!.id
   });
-    
-  console.log('** /api/tickets ', ticket)
+  
   try {
     await ticket.save();
   } catch (error) {
     console.error(error)
   }
   
-  console.log('** /api/tickets ', ticket)  
   res.status(201).send(ticket)
 })
 
