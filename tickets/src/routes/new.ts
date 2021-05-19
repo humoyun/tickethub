@@ -1,7 +1,9 @@
+import { TicketCreatedPublisher } from '../events/ticket-created-publisher';
 import express, {Request, Response} from 'express';
 import { body } from 'express-validator';
 import { validateRequest, isAuth } from 'bay-common'
 import { Ticket } from '../models/ticket'
+import { natsWrapper } from '../nats-wrapper'
 
 const router = express.Router()
 
@@ -22,6 +24,12 @@ router.post('/api/tickets', isAuth, [
   
   try {
     await ticket.save();
+    await new TicketCreatedPublisher(natsWrapper.client).publish({
+      id: ticket.id,
+      userId: ticket.userId,
+      title: ticket.title,
+      price: ticket.price,
+    })
   } catch (error) {
     console.error(error)
   }

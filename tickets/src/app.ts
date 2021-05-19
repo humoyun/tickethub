@@ -10,7 +10,6 @@ import {
   getTicketRouter
 } from './routes';
 
-
 const app = express();
 
 /**

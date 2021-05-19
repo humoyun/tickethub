@@ -1,7 +1,7 @@
 import request from 'supertest'
 import app from '../../app'
 import { Ticket } from '../../models/ticket'
-
+import { natsWrapper } from '../../nats-wrapper';
 
 it('has a route handler listening to /api/tickets for post requests', async () => {
   const resp = await request(app)
@@ -9,7 +9,7 @@ it('has a route handler listening to /api/tickets for post requests', async () =
     .send({})
   
   expect(resp.status).not.toEqual(404)
-}, 2000);
+}, 1000);
 
 it('not authorized users cannot access this route', () => {
   request(app)
@@ -44,7 +44,7 @@ it('returns error in case of invalid title', async () => {
       price: 100
     })
   .expect(400) // bad request
-}, 2000);
+}, 1000);
 
 it('returns error in case of invalid price', async () => {
   await request(app)
@@ -63,7 +63,7 @@ it('returns error in case of invalid price', async () => {
       title: 'Ticket 1',
     })
     .expect(400) // bad request
-}, 2000);
+}, 1000);
 
 it('creates a ticket with valid inputs', async () => {
   let tickets = await Ticket.find({});
@@ -82,5 +82,17 @@ it('creates a ticket with valid inputs', async () => {
   
   expect(tickets.length).toEqual(1);
   expect(tickets[0].price).toEqual(42);
-}, 2000);
+}, 1000);
 
+it('publishes an event', async () => {
+  await request(app)
+    .post('/api/tickets')
+    .set('Cookie', global.signin())
+    .send({
+      title: 'Ticket super',
+      price: 42
+    })
+    .expect(201);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled()
+})

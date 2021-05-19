@@ -1,6 +1,8 @@
 import express, {Request, Response} from 'express';
 import { body } from 'express-validator';
 import { validateRequest, isAuth, RouteNotFoundError, UnauthorizedError } from 'bay-common'
+import { TicketUpdatedPublisher } from '../events/ticket-updated-publisher';
+import { natsWrapper } from '../nats-wrapper'
 import { Ticket } from '../models/ticket'
 
 const router = express.Router()
@@ -37,6 +39,13 @@ router.put('/api/tickets/:id', isAuth, [
   
   try {
     await ticket.save();
+    await new TicketUpdatedPublisher(natsWrapper.client).publish({
+      id: ticket.id,
+      userId: ticket.userId,
+      title: ticket.title,
+      price: ticket.price,
+    })
+
   } catch (error) {
     console.error(error)
   }
