@@ -25,6 +25,14 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
+    - image: hmoyun/orders
+      context: orders
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
     # next.js client
     - image: hmoyun/client
       context: client

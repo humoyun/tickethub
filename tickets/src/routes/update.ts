@@ -1,7 +1,7 @@
 import express, {Request, Response} from 'express';
 import { body } from 'express-validator';
 import { validateRequest, isAuth, RouteNotFoundError, UnauthorizedError } from 'bay-common'
-import { TicketUpdatedPublisher } from '../events/ticket-updated-publisher';
+import { TicketUpdatedPublisher } from '../events/ticket-updated-publisher'; 
 import { natsWrapper } from '../nats-wrapper'
 import { Ticket } from '../models/ticket'
 

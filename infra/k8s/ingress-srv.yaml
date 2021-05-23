@@ -21,6 +21,11 @@ spec:
             backend:
               serviceName: tickets-srv
               servicePort: 3000
+          # orders service
+          - path: /api/orders/?(.*)
+            backend:
+              serviceName: orders-srv
+              servicePort: 3000
           # client next.js ssr app
           - path: /?(.*)
             backend:
