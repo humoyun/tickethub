@@ -1,5 +1,6 @@
 import { OrderStatus } from 'bay-common';
 import mongoose from 'mongoose'
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current'
 import { TicketDoc } from './ticket';
 
 interface OrderProps {
@@ -14,6 +15,7 @@ interface OrderDoc extends mongoose.Document {
   status: OrderStatus;
   expiresAt: Date;
   ticket: TicketDoc;
+  version: number;
 }
 
 interface OrderModel extends mongoose.Model<OrderDoc> {
@@ -48,6 +50,9 @@ const orderSchema = new mongoose.Schema({
     }
   }
 });
+
+orderSchema.set('versionKey', 'version');
+orderSchema.plugin(updateIfCurrentPlugin);
 
 orderSchema.statics.build = (props: OrderProps) => {
   return new Order(props)

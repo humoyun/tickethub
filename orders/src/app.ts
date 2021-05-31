@@ -29,7 +29,7 @@ app.use(cookieSession({
   name: 'jwt', // changing default name, `express:sess` -> `jwt`
 }));
 
-// middleware
+// middleware for getting session info in all handlers
 app.use(currentUser)
 
 app.use(express.json())

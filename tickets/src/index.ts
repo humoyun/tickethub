@@ -35,6 +35,7 @@ const start = async () => {
       process.env.NATS_CLIENT_ID,
       process.env.NATS_URL
     );
+    
 
     // NATS graceful shutdown
     // make NATSWrapper (Singleton) class for initializing NATS client similar to mongoose
@@ -48,13 +49,17 @@ const start = async () => {
 
     process.on('SIGINT', () => natsWrapper.client.close())
     process.on('SIGTERM', () => natsWrapper.client.close())
-    
+  } catch (err) {
+    console.error('[tickets NATS conn ]', err)
+  }
+
+  try {    
     await mongoose.connect(process.env.MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true
     });
-    console.log('*** tickets connected to mongodb ***')
+    console.log('*** TICKETS_SERVICE connected to mongodb ***')
   } catch (err) {
     console.error('mongodb conn err: ', err)  
   }

@@ -1,6 +1,6 @@
 import express, {Request, Response} from 'express';
 import { body } from 'express-validator';
-import { validateRequest, isAuth, RouteNotFoundError, UnauthorizedError } from 'bay-common'
+import { validateRequest, isAuth, NotFoundError, UnauthorizedError } from 'bay-common'
 import { TicketUpdatedPublisher } from '../events/ticket-updated-publisher'; 
 import { natsWrapper } from '../nats-wrapper'
 import { Ticket } from '../models/ticket'
@@ -25,7 +25,7 @@ router.put('/api/tickets/:id', isAuth, [
   
   const ticket = await Ticket.findById(req.params.id)
   if (!ticket) {
-    throw new RouteNotFoundError(); // TODO: replace with NotFoundError
+    throw new NotFoundError(); // TODO: replace with NotFoundError
   }
   
   if (ticket.userId !== req.currentUser!.id) {
@@ -41,6 +41,7 @@ router.put('/api/tickets/:id', isAuth, [
     await ticket.save();
     await new TicketUpdatedPublisher(natsWrapper.client).publish({
       id: ticket.id,
+      version: ticket.version,
       userId: ticket.userId,
       title: ticket.title,
       price: ticket.price,

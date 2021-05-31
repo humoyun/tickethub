@@ -1,9 +1,12 @@
 import request from 'supertest';
+import mongoose from 'mongoose';
 import app from '../../app';
 import Ticket from '../../models/ticket';
 
 it('fetches an order', async () => {
+  const mockedId = new mongoose.Types.ObjectId().toHexString();
   const ticket = Ticket.build({
+    id: mockedId,
     title: 'some random title',
     price: 201
   })
@@ -28,4 +31,4 @@ it('fetches an order', async () => {
   expect(resp.body.id).toEqual(order.id)
 });
 
-it.todo('unauthorized error when user want to get the order which he does not own')
+it.todo('unauthorized error when user want to get the order which he does not own');

@@ -6,9 +6,9 @@ import { Message } from "node-nats-streaming";
  * so that we can verify what we are receiving is what we expected 
  */
 export class OrderCreatedListener extends NatsListener<OrderCreatedEvent> {
-  // makes sure subject never changes to anything, even to other Subjects types like OrderCreated
+  // makes sure subject never changes to anything, even to other Subjects types like OrderUpdated
   readonly subject: Subjects.OrderCreated = Subjects.OrderCreated;
-  queueGroupName = 'Order-service';
+  queueGroupName = 'orders-service';
 
   onMessage(data: OrderCreatedEvent['data'], msg: Message) {
     console.log('Event data: ', data);

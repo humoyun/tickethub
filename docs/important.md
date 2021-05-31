@@ -9,3 +9,21 @@
 - cmd: `kubectl create secret generic jwt-secret --from-literal=JWT_KEY=some-very-secret-key`
 
 - Load testing (TODO:): https://github.com/fortio/fortio
+
+### Some concurrency issues
+
+when we make many ticket creation (update) requests in parallel
+events might possibly come out of order, here we use version-id to mitigate this problem
+refer to OCC (Optimistic Concurrency Control)
+
+requests => ticket-srv => ticket-db =>
+=> emit event to NATS with same data => groupOfListeners => order-db (replica of tickets in order service)
+
+some relevant links:
+
+- https://jimmybogard.com/document-level-optimistic-concurrency-in-mongodb/
+
+| Important note: increment the `version` number whenever the primary service responsible
+| for a record emits an event to describe a create/update/destroy to a record
+e.g. ticket-event versioning should only be controlled by Ticket service but not others
+even they consume/utilize ticket-event

@@ -28,12 +28,17 @@ router.post('/api/orders', isAuth, [
   /**
    * case 1. find the ticket user is trying to order
    * if not found then 
-   */
+    */
   const { ticketId } = req.body;
-  const ticket = await Ticket.findById(ticketId);
+  let ticket;
+  try {
+    ticket = await Ticket.findById(ticketId);
+  } catch (err) {
+    console.error(err)
+  }
   
   if (!ticket) {
-    throw new NotFoundError(); // todo: change into not-found-error
+    throw new NotFoundError();
   }
     
   /**
@@ -64,11 +69,13 @@ router.post('/api/orders', isAuth, [
   
   try {
     await order.save();
+    
     await new OrderCreatedPublisher(natsWrapper.client).publish({
       id: order.id,
       status: order.status,
-      userId: order.userId,
-      expiresAt:order.expiresAt.toISOString(), // explanation
+      userId: order.userId, // :TODO: add version
+      expiresAt: order.expiresAt.toISOString(), // explanation
+      version: order.version,
       ticket: {
         id: ticket.id,
         price: ticket.price,
