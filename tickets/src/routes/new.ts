@@ -30,9 +30,9 @@ router.post('/api/tickets', isAuth, [
       userId: ticket.userId,
       title: ticket.title,
       price: ticket.price,
-    })
+    });
   } catch (error) {
-    console.error(error)
+    console.error('[ticket-created-publisher]', error);
   }
   
   res.status(201).send(ticket)

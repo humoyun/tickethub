@@ -27,3 +27,9 @@ some relevant links:
 | for a record emits an event to describe a create/update/destroy to a record
 e.g. ticket-event versioning should only be controlled by Ticket service but not others
 even they consume/utilize ticket-event
+
+### Important note for unwanted versioning of tickets by order-events
+
+when we make change orderId of ticket (create a new order for this ticket or cancel this order after it was created)
+as part of our OCC mechanism, any updates to ticket will automatically update `version` of a ticket
+so whenever we make any changes to ticket, we need to emit the event (with incremented version)

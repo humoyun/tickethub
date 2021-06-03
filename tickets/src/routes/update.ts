@@ -1,6 +1,6 @@
 import express, {Request, Response} from 'express';
 import { body } from 'express-validator';
-import { validateRequest, isAuth, NotFoundError, UnauthorizedError } from 'bay-common'
+import { validateRequest, isAuth, NotFoundError, UnauthorizedError, BadRequestError } from 'bay-common'
 import { TicketUpdatedPublisher } from '../events/ticket-updated-publisher'; 
 import { natsWrapper } from '../nats-wrapper'
 import { Ticket } from '../models/ticket'
@@ -27,10 +27,15 @@ router.put('/api/tickets/:id', isAuth, [
   if (!ticket) {
     throw new NotFoundError(); // TODO: replace with NotFoundError
   }
+  // if ticket has already been reserved, we don't allow to edit until its status changes
+  if (ticket.orderId) {
+    throw new BadRequestError('Ticket already reserved, no edits allowed')
+  }
   
   if (ticket.userId !== req.currentUser!.id) {
     throw new UnauthorizedError();
   }
+    
   const { title, price } = req.body;  
   ticket.set({
     title,

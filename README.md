@@ -119,3 +119,5 @@ NextJS -> Cluster[ingres-nginx -> next-js-pod -> ingress-nginx -> auth-app-in-an
 ```
 
 ## TODO: Mocking databases MongoDB in tests instead of using real mongodb connection
+
+## TODO: Test OCC related cases in orders/tests/test-script-to-check-occ.ts

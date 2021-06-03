@@ -1,9 +1,8 @@
 import mongoose from 'mongoose';
 import { natsWrapper } from './nats-wrapper';
+import app from './app'
 import { OrderCreatedListener } from './events/order-created-listener'
 import { OrderCancelledListener } from './events/order-cancelled-listener'
-import app from './app'
-
 
 const PORT = 3000;
 
@@ -17,7 +16,6 @@ const start = async () => {
   if (!process.env.MONGO_URI) {
     throw new Error('MONGO_URI must be defined');
   }
-
 
   if (!process.env.NATS_CLUSTER_ID) {
     throw new Error('NATS_CLUSTER_ID must be defined');
@@ -53,8 +51,9 @@ const start = async () => {
 
     new OrderCreatedListener(natsWrapper.client).listen();
     new OrderCancelledListener(natsWrapper.client).listen();
+
   } catch (err) {
-    console.error('[tickets NATS conn ]', err)
+    console.error('[payments NATS conn ]', err)
   }
 
   try {    
@@ -63,13 +62,13 @@ const start = async () => {
       useUnifiedTopology: true,
       useCreateIndex: true
     });
-    console.log('*** TICKETS_SERVICE connected to mongodb ***')
+    console.log('*** PAYMENTS_SERVICE connected to mongodb ***')
   } catch (err) {
     console.error('mongodb conn err: ', err)  
   }
 
   app.listen(PORT, () => {
-    console.log(`tickets service started on ${PORT}!`)
+    console.log(`payments service started on ${PORT}!`)
   })
 }
 

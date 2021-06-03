@@ -13,7 +13,7 @@ class NatsWrapper {
 
     return new Promise((resolve, reject) => {
       this.client.on('connect', () => {
-        console.log('ticket:service connected to NATS')
+        console.log('** NATS connected **');
         resolve();
       });
       

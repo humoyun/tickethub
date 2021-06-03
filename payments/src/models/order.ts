@@ -1,51 +1,44 @@
 import { OrderStatus } from 'bay-common';
-import mongoose from 'mongoose'
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current'
-import { TicketDoc } from './ticket';
+import mongoose from 'mongoose';
 
 interface OrderProps {
-  userId: string;
+  id: string;
+  version: number;
   status: OrderStatus;
-  expiresAt: Date;
-  ticket: TicketDoc;
+  userId: string;
+  price: number
 }
 
 interface OrderDoc extends mongoose.Document {
-  userId: string;
-  status: OrderStatus;
-  expiresAt: Date;
-  ticket: TicketDoc;
   version: number;
+  status: OrderStatus;
+  userId: string;
+  price: number;
 }
 
 interface OrderModel extends mongoose.Model<OrderDoc> {
-  build(props: OrderProps): OrderDoc 
-}
+  build(props: OrderProps): OrderDoc;
+};
 
 const orderSchema = new mongoose.Schema({
+  status: {
+    type: String,
+    required: true
+  },
   userId: {
     type: String,
     required: true
   },
-  status: {
-    type: String,
-    required: true,
-    enum: Object.values(OrderStatus),
-    default: OrderStatus.Created
-  },
-  ticket: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Ticket'
-  },
-  expiresAt: {
-    type: mongoose.Schema.Types.Date,
+  price: {
+    type: Number,
+    required: true
   }
 }, {
   toJSON: {
     transform(doc, ret) {
       ret.id = ret._id;
       delete ret._id;
-      delete ret.__v;
     }
   }
 });
@@ -54,9 +47,15 @@ orderSchema.set('versionKey', 'version');
 orderSchema.plugin(updateIfCurrentPlugin);
 
 orderSchema.statics.build = (props: OrderProps) => {
-  return new Order(props)
+  return new Order({
+    _id: props.id,
+    status: props.status,
+    version: props.version,
+    userId: props.userId,
+    price: props.price
+  })
 }
 
 const Order = mongoose.model<OrderDoc, OrderModel>('Order', orderSchema);
 
-export default Order
+export default Order;

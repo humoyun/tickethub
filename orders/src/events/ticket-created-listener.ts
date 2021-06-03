@@ -12,7 +12,7 @@ export class TicketCreatedListener extends NatsListener<TicketCreatedEvent> {
   queueGroupName = 'orders-service';
 
   async onMessage(data: TicketCreatedEvent['data'], msg: Message) {
-    console.log('ticket-created-event data: ', data);
+    console.log('ticket-created-event data: ', data.id);
     // emitted from Ticket service
     const { id, title, price } = data;
     const ticket = Ticket.build({ id, title, price });

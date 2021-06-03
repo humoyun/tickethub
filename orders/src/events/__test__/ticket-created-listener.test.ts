@@ -30,7 +30,7 @@ const setup = async () => {
 
 it('creates and saves a ticket', async () => {
   // 4. call the `onMessage` function with the data object + message object
-  const { listener, data, msg } = await setup()
+  const { listener, data, msg } = await setup();
   await listener.onMessage(data, msg);
   // 5. assert to make sure the ticket was created
   const ticket = await Ticket.findById(data.id)

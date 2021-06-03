@@ -14,7 +14,7 @@ import Ticket from '../models/ticket'
 import { natsWrapper } from '../nats-wrapper'
 
 const router = express.Router()
-const EXPIRATION_WINDOW_SECONDS = 15 * 60; // 15 min
+const EXPIRATION_WINDOW_SECONDS = 5 * 60; // 5 min
 
 router.post('/api/orders', isAuth, [
   body('ticketId')

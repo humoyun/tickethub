@@ -1,7 +1,7 @@
 {
-  "name": "@bay/tickets",
+  "name": "@bay/payments",
   "version": "0.0.1",
-  "description": "tickets service as a micro-service",
+  "description": "payment service as a micro-service",
   "main": "index.ts",
   "scripts": {
     "watch": "tsc -w",

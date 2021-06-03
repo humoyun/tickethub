@@ -14,7 +14,7 @@ export class TicketUpdatedListener extends NatsListener<TicketUpdatedEvent> {
 
   async onMessage(data: TicketUpdatedEvent['data'], msg: Message) {
     // emitted from Ticket service
-    console.log('ticket-updated-event data: ', data);
+    console.log('ticket-updated-event data: ', data.id);
     // versioning is important to keep data integrity across services (replicated data)
     // keep track of correct ordering of events by versioning, events should come in sequence
     // e.g. 1, 2, 3, ...

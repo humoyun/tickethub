@@ -2,6 +2,7 @@ import request from 'supertest'
 import mongoose from 'mongoose'
 import app from '../../app'
 import { natsWrapper } from '../../nats-wrapper';
+import { Ticket } from '../../models/ticket';
 
 it('returns a 404 if the provided id does not exist', async () => {
   const ticketId = new mongoose.Types.ObjectId().toHexString();
@@ -106,7 +107,7 @@ it('it publishes an event', async () => {
     .send({
       title: 'some ticket',
       price: 213
-    }).expect(201)
+    }).expect(201);
   
   await request(app)
     .put(`/api/tickets/${resp.body.id}`)
@@ -118,4 +119,31 @@ it('it publishes an event', async () => {
   
   // main thing to check
   expect(natsWrapper.client.publish).toHaveBeenCalled()
-})
+});
+
+// important business logic
+it('cannot edit already reserved tickets', async () => {
+  const cookie = global.signin();
+  const resp = await request(app)
+    .post('/api/tickets')
+    .set('Cookie', cookie)
+    .send({
+      title: 'some ticket',
+      price: 213
+    }).expect(201);
+  
+  const orderId = new mongoose.Types.ObjectId().toHexString();
+  const ticket = await Ticket.findById(resp.body.id);
+  ticket!.set({ orderId });
+
+  await ticket!.save();
+  
+  await request(app)
+    .put(`/api/tickets/${resp.body.id}`)
+    .set('Cookie', cookie) // same user
+    .send({
+      title: 'edited ticket',
+      price: 121
+    }).expect(400)
+  
+});

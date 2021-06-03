@@ -17,6 +17,7 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
+    # tickets service
     - image: hmoyun/tickets
       context: tickets
       docker:
@@ -25,8 +26,27 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
+    # orders service
     - image: hmoyun/orders
       context: orders
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
+    # expiration service
+    - image: hmoyun/expiration
+      context: expiration
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
+    # payments service
+    - image: hmoyun/payments
+      context: payments
       docker:
         dockerfile: Dockerfile
       sync:

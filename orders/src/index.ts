@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { TicketUpdatedListener } from './events/ticket-updated-listener';
 import { TicketCreatedListener } from './events/ticket-created-listener';
+import { ExpirationCompleteListener } from './events/expiration-complete-listener';
 import { natsWrapper } from './nats-wrapper';
 import app from './app'
 
@@ -57,6 +58,7 @@ const start = async () => {
     
     new TicketCreatedListener(natsWrapper.client).listen();
     new TicketUpdatedListener(natsWrapper.client).listen();
+    new ExpirationCompleteListener(natsWrapper.client).listen();
   } catch (err) {
     console.error('natsWrapper.connect', err) 
   }
