@@ -10,9 +10,9 @@ const setup = async () => {
 
   const order = Order.build({
     id: new mongoose.Types.ObjectId().toHexString(),
+    userId: new mongoose.Types.ObjectId().toHexString(),
     version: 0,
     price: 323,
-    userId: new mongoose.Types.ObjectId().toHexString(),
     status: OrderStatus.Created
   });
 
@@ -20,7 +20,7 @@ const setup = async () => {
 
   const data: OrderCancelledEvent['data'] = {
     id: order.id,
-    version: 0,
+    version: 1, // !important, version is updated when order was cancelled
     ticket: {
       id: new mongoose.Types.ObjectId().toHexString(),
     }

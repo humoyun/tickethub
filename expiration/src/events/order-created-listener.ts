@@ -14,7 +14,7 @@ export class OrderCreatedListener extends NatsListener<OrderCreatedEvent> {
 
     console.warn('*** waiting expiration job:orderId ', data.id)
     await expirationQueue.add({ orderId: data.id },
-      { delay: 10000 }); // TODO: 10000 (10 sec) tempo after checking put back delay
+      { delay: 60000 }); // TODO: 10000 (60 sec) tempo after checking put back delay
 
     msg.ack();
   }

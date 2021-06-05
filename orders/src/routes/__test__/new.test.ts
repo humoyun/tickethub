@@ -7,7 +7,7 @@ import { natsWrapper } from '../../nats-wrapper';
 import { OrderStatus } from 'bay-common';
 
 it('it returns error if ticket does not exist', async () => {
-  const ticketId = mongoose.Types.ObjectId();
+  const ticketId = mongoose.Types.ObjectId().toHexString();
   const cookie = global.signin();
   await request(app)
     .post('/api/orders')

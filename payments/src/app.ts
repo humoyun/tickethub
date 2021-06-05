@@ -3,7 +3,7 @@ import cookieSession from 'cookie-session';
 import 'express-async-errors';
 import cors from 'cors'; 
 import { RouteNotFoundError, errorHandler, currentUser } from 'bay-common';
-
+import { createChargeRouter } from './routes'
 
 const app = express();
 
@@ -23,11 +23,12 @@ app.use(cookieSession({
   secure: process.env.NODE_ENV !== 'test', // cookie is available only over HTTPS connection (jest sets NODE_ENV = test while running tests) 
   name: 'jwt', // changing default name, `express:sess` -> `jwt`
 }))
-app.use(currentUser)
+app.use(currentUser);
 
-app.use(express.json())
+app.use(express.json());
 app.disable('x-powered-by'); // good practice to hide what server is powering this app
 
+app.use(createChargeRouter);
 
 app.all('*', async () => {
   throw new RouteNotFoundError();

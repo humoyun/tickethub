@@ -9,7 +9,7 @@ let mongodb: MongoMemoryServer;
 declare global {
   namespace NodeJS {
     interface Global {
-      signin(): string[];
+      signin(id?: string): string[];
     }
   }
 }
@@ -46,11 +46,11 @@ afterAll(async () => {
 /**
  * global signup for only testing environment
  */
-global.signin = () => {
+global.signin = (id?: string) => {
   const objectId = new mongoose.Types.ObjectId().toHexString();
   const payload = {
     email: "test@test.com",
-    id: `test-${objectId}`
+    id: id || `test-${objectId}`
   }
 
   const token = jwt.sign(payload, process.env.JWT_KEY as string)
