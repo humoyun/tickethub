@@ -1,5 +1,3 @@
-import buildClient from '@/api/build-client';
-
 const Home = ({ currentUser }) => {
   console.log("Home currentUser", currentUser)
   return currentUser ? (
@@ -9,15 +7,8 @@ const Home = ({ currentUser }) => {
   );
 };
 
-Home.getInitialProps = async context => {
-  console.log('HOME PAGE!');
-  const client = buildClient(context);
-  const { data } = await client.get('/api/users/me');
-  console.log('data', data)
-
-  return {
-    currentUser: data.me
-  };
+Home.getInitialProps = async (context, apiClient, currentUser) => { 
+  return {};
 };
 
 export default Home;

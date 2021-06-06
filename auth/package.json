@@ -9,7 +9,7 @@
     "start-js": "node dist/index",
     "dev": "nodemon dist/index",
     "build": "rimraf ./dist && tsc src/index.ts --outDir dist",
-    "test": "jest --watchAll --no-cache"
+    "test:ci": "jest --watchAll --no-cache"
   },
   "jest": {
     "preset": "ts-jest",
